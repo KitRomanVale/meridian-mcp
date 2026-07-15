@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="290" viewBox="0 0 1200 290" fill="none" role="img">
+  <title>How Meridian connects</title>
+  <defs>
+    <style>
+      .title { font: 700 25px 'Segoe UI', Arial, sans-serif; letter-spacing: 1px; }
+      .copy { font: 400 19px 'Segoe UI', Arial, sans-serif; letter-spacing: 0; }
+      .signal { stroke-dasharray: 10 14; animation: flow 4.8s linear infinite; }
+      .signal.two { animation-delay: -1.6s; }
+      .signal.three { animation-delay: -3.2s; }
+      .out { animation-duration: 3.8s; }
+      @keyframes flow { to { stroke-dashoffset: -192; } }
+      @media (prefers-reduced-motion: reduce) { .signal { animation: none; } }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="1198" height="288" rx="18" fill="#0D1117" stroke="#30363D" stroke-width="2"/>
+
+  <g>
+    <rect x="42" y="34" width="220" height="58" rx="7" fill="#161B22" stroke="#30363D"/>
+    <text x="152" y="59" text-anchor="middle" class="title" fill="#F0F6FC">DESKTOP</text>
+    <text x="152" y="80" text-anchor="middle" class="copy" fill="#8B949E">legacy JSON or MCP</text>
+
+    <rect x="42" y="116" width="220" height="58" rx="7" fill="#161B22" stroke="#30363D"/>
+    <text x="152" y="141" text-anchor="middle" class="title" fill="#F0F6FC">CLAUDE.AI</text>
+    <text x="152" y="162" text-anchor="middle" class="copy" fill="#8B949E">remote connector</text>
+
+    <rect x="42" y="198" width="220" height="58" rx="7" fill="#161B22" stroke="#30363D"/>
+    <text x="152" y="223" text-anchor="middle" class="title" fill="#F0F6FC">MOBILE</text>
+    <text x="152" y="244" text-anchor="middle" class="copy" fill="#8B949E">same remote connector</text>
+  </g>
+
+  <path d="M262 63H390L458 145" stroke="#39D0C3" stroke-width="2" opacity=".3"/>
+  <path d="M262 63H390L458 145" class="signal" stroke="#39D0C3" stroke-width="3"/>
+  <path d="M262 145H458" stroke="#F2CC60" stroke-width="2" opacity=".3"/>
+  <path d="M262 145H458" class="signal two" stroke="#F2CC60" stroke-width="3"/>
+  <path d="M262 227H390L458 145" stroke="#FF6B4A" stroke-width="2" opacity=".3"/>
+  <path d="M262 227H390L458 145" class="signal three" stroke="#FF6B4A" stroke-width="3"/>
+
+  <rect x="458" y="78" width="298" height="134" rx="12" fill="#161B22" stroke="#39D0C3" stroke-width="2"/>
+  <text x="607" y="120" text-anchor="middle" class="title" fill="#39D0C3">MERIDIAN WORKER</text>
+  <text x="607" y="151" text-anchor="middle" class="copy" fill="#B8C0CC">POST /mcp</text>
+  <text x="607" y="176" text-anchor="middle" class="copy" fill="#8B949E">initialize / tools/list / tools/call</text>
+
+  <path d="M756 145H906" stroke="#F2CC60" stroke-width="2" opacity=".3"/>
+  <path d="M756 145H906" class="signal out" stroke="#F2CC60" stroke-width="3"/>
+
+  <rect x="906" y="94" width="252" height="102" rx="10" fill="#161B22" stroke="#F2CC60" stroke-width="2"/>
+  <text x="1032" y="132" text-anchor="middle" class="title" fill="#F2CC60">CHECK_TIME</text>
+  <text x="1032" y="158" text-anchor="middle" class="copy" fill="#B8C0CC">UTC + local time</text>
+  <text x="1032" y="179" text-anchor="middle" class="copy" fill="#8B949E">nothing stored</text>
+</svg>

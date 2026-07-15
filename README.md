@@ -1,129 +1,117 @@
-# meridian-mcp
+<p align="center">
+  <img src="./readme-assets/hero.svg" width="100%" alt="Meridian MCP. Time, wherever you are. Remote time awareness for AI companions." />
+</p>
 
-A lightweight time-awareness tool for AI companions — works on **Claude Desktop, claude.ai (browser), and mobile**.
+<p align="center">
+  <a href="#quick-start"><img src="https://img.shields.io/badge/DEPLOY-IN_10_MINUTES-39D0C3?style=for-the-badge&labelColor=0D1117" alt="Deploy in 10 minutes" /></a>
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/REMOTE-MCP-F2CC60?style=for-the-badge&labelColor=0D1117" alt="Remote MCP" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-FF6B4A?style=for-the-badge&labelColor=0D1117" alt="MIT license" /></a>
+</p>
 
-Built by **Kit \& Roman Vale** — March 2026
-Based on [time-mcp](https://github.com/knowingly-ai/time-mcp) by **Jess \& Cecil at KnowinglyAI**
+<img src="./readme-assets/marquee.svg" width="100%" alt="Current time, current date, UTC and local, one deployment, no tunnel." />
 
-\---
+A lightweight time-awareness tool for AI companions that works on **Claude Desktop, claude.ai, and mobile**.
 
-## What this is
+Meridian extends [time-mcp](https://github.com/knowingly-ai/time-mcp) with a full remote MCP endpoint. Deploy one Cloudflare Worker, connect its permanent URL, and your AI companion can check the time from every supported surface without a local bridge or tunnel.
 
-[time-mcp](https://github.com/knowingly-ai/time-mcp) by KnowinglyAI gave AI companions the ability to check the current time via a Cloudflare Worker. It works beautifully on Claude Desktop.
+> **New to terminals or Cloudflare?** Follow the friendly, no-assumptions [beginner guide](BEGINNER_GUIDE.md). It takes about ten minutes.
 
-**meridian-mcp** builds on that foundation by upgrading the Worker to speak the full MCP protocol — which means it works as a **remote connector** on claude.ai (browser) and the Claude mobile app, with no local bridge, no tunnel, and no maintenance.
+## One deployment. Everywhere.
 
-One deployment. Everywhere.
+| Capability | time-mcp | Meridian MCP |
+| --- | :---: | :---: |
+| Claude Desktop | Yes | Yes |
+| claude.ai browser | No | Yes |
+| Claude mobile | No | Yes |
+| Local Node bridge required for remote use | Yes | No |
+| Tunnel required | No | No |
+| Permanent Worker URL | Yes | Yes |
 
-\---
-
-## What's new in this fork
-
-|Feature|time-mcp (original)|meridian-mcp (this fork)|
-|-|-|-|
-|Claude Desktop|✅|✅|
-|claude.ai browser|❌|✅|
-|Claude mobile|❌|✅|
-|Requires local Node bridge|Yes|No (remote only)|
-|Permanent URL|✅|✅|
-|Requires tunnel (Cloudflare/ngrok)|No|No|
-
-The `time-mcp-worker.js` has been extended to handle the MCP protocol handshake (`initialize`, `tools/list`, `tools/call`) directly over HTTP — so claude.ai can connect to it as a remote MCP server without any local infrastructure.
-
-The legacy JSON API (used by the Desktop local bridge) is preserved at the root `/` endpoint, so existing Desktop setups continue to work unchanged.
-
-\---
+The Worker speaks the MCP handshake directly over HTTP at `/mcp` while keeping the original JSON API available at `/` for existing Desktop setups.
 
 ## Quick start
 
-### 1\. Deploy the Worker
-
-Clone this repo, then in your terminal:
+### 1. Deploy the Worker
 
 ```bash
 npx wrangler login
 npx wrangler deploy
 ```
 
-Note the URL it gives you — something like:
-`https://meridian-mcp.your-subdomain.workers.dev`
+Wrangler will return a permanent URL similar to:
 
-### 2\. Connect to claude.ai (browser + mobile)
-
-1. Go to **claude.ai → Settings → Connectors**
-2. Click **Add custom connector**
-3. Enter your URL with `/mcp` appended:
-`https://meridian-mcp.your-subdomain.workers.dev/mcp`
-4. Give it a name (e.g. `Time Awareness`)
-5. Save
-
-That's it. Enable it in any conversation and your AI companion can check the time.
-
-### 3\. Claude Desktop (optional — if you also want Desktop support)
-
-Follow the original [time-mcp Desktop setup guide](https://github.com/knowingly-ai/time-mcp) — the Worker URL is the same, and the root `/` endpoint still returns plain JSON for the local bridge.
-
-\---
-
-## How it works
-
-```
-claude.ai / mobile
-      │
-      │  POST /mcp  (JSON-RPC)
-      ▼
-Cloudflare Worker  ←─── permanent, always-on, free tier
-      │
-      │  returns current time in UTC + local timezone
-      ▼
-your AI companion
+```text
+https://meridian-mcp.your-subdomain.workers.dev
 ```
 
-The Worker handles the full MCP handshake:
+### 2. Connect browser and mobile
 
-* `initialize` — capability negotiation
-* `tools/list` — advertises the `check\_time` tool
-* `tools/call` — executes and returns time data
+In **claude.ai > Settings > Connectors**, add a custom connector using your URL with `/mcp` appended:
 
-\---
+```text
+https://meridian-mcp.your-subdomain.workers.dev/mcp
+```
+
+Enable that connector in a conversation and ask for the current time. The same connector is then available on mobile.
+
+### 3. Keep Desktop compatibility
+
+Already using the original Desktop bridge? Nothing needs to change. Meridian preserves the root JSON endpoint, so the same Worker URL continues to work with that setup.
+
+## How it moves
+
+<p align="center">
+  <img src="./readme-assets/flow.svg" width="100%" alt="Claude Desktop, claude.ai, and mobile connect to the Meridian Cloudflare Worker, which returns current UTC and local time." />
+</p>
+
+The remote Worker handles:
+
+- `initialize` for capability negotiation
+- `notifications/initialized` for client readiness
+- `tools/list` to advertise the time tool
+- `tools/call` to execute it
 
 ## The tool
 
+```text
+check_time(timezone?: string)
 ```
-check\_time(timezone?: string)
-```
 
-**Parameters:**
+`timezone` accepts any IANA timezone identifier, such as `Europe/Amsterdam`, `America/New_York`, or `Asia/Tokyo`. The remote Worker defaults to `Europe/Amsterdam` when no timezone is supplied.
 
-* `timezone` — any IANA timezone identifier (e.g. `Europe/Amsterdam`, `America/New\_York`). Defaults to `Europe/Amsterdam`.
-
-**Returns:**
+Example response:
 
 ```json
 {
   "utc": "2026-03-23T10:16:36.199Z",
-  "local\_time": "11:16 AM",
+  "local_time": "11:16 AM",
   "date": "Monday, March 23, 2026",
   "timezone": "CET",
-  "full\_timezone": "Europe/Amsterdam"
+  "full_timezone": "Europe/Amsterdam"
 }
 ```
 
-\---
+## Why it stays small
+
+- **One focused tool.** Meridian does one job and makes that job dependable.
+- **No account database.** The Worker calculates time on demand and stores nothing.
+- **No tunnel to maintain.** Cloudflare provides the public endpoint.
+- **No browser-only fork.** Remote MCP and the legacy JSON API live in the same Worker.
 
 ## Cost
 
-Free. Runs entirely on Cloudflare's free tier (100,000 requests/day).
-
-\---
+Free for ordinary personal use. Meridian runs on Cloudflare Workers and fits comfortably within the free tier.
 
 ## Credits
 
-This project is a fork of [time-mcp](https://github.com/knowingly-ai/time-mcp) by **Jess \& Cecil at** [**KnowinglyAI**](https://github.com/knowingly-ai), who built the original time-checking Worker and Desktop integration. Their work is the foundation — we just extended it to reach further.
+Built by **Kit & Roman Vale** in March 2026.
 
-\---
+Meridian is based on [time-mcp](https://github.com/knowingly-ai/time-mcp) by **Jess & Cecil at [KnowinglyAI](https://github.com/knowingly-ai)**. Their original Worker and Desktop integration are the foundation; Meridian extends that work to remote MCP clients.
 
 ## License
 
-MIT — same as the original. Use freely, modify as needed, share with others.
+Released under the [MIT License](LICENSE), matching the original project.
 
+<p align="center">
+  <img src="./readme-assets/footer.svg" width="100%" alt="One deployment. Everywhere." />
+</p>

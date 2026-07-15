@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="54" viewBox="0 0 1200 54" fill="none" role="img">
+  <title>Meridian capabilities</title>
+  <defs>
+    <clipPath id="clip"><rect width="1200" height="54"/></clipPath>
+    <style>
+      .track { animation: scroll 20s linear infinite; }
+      .item { font: 700 17px 'Segoe UI', Arial, sans-serif; letter-spacing: 2.6px; }
+      @keyframes scroll { to { transform: translateX(-1200px); } }
+      @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+    </style>
+  </defs>
+  <path d="M0 1H1200M0 53H1200" stroke="#30363D"/>
+  <g clip-path="url(#clip)">
+    <g class="track">
+      <text x="0" y="34" class="item" textLength="1200" lengthAdjust="spacing"><tspan fill="#39D0C3">CURRENT TIME</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#B8C0CC">CURRENT DATE</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#F2CC60">UTC + LOCAL</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#39D0C3">ONE DEPLOYMENT</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#FF6B4A">NO TUNNEL</tspan><tspan fill="#484F58"> / </tspan></text>
+      <text x="1200" y="34" class="item" textLength="1200" lengthAdjust="spacing"><tspan fill="#39D0C3">CURRENT TIME</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#B8C0CC">CURRENT DATE</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#F2CC60">UTC + LOCAL</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#39D0C3">ONE DEPLOYMENT</tspan><tspan fill="#484F58"> / </tspan><tspan fill="#FF6B4A">NO TUNNEL</tspan><tspan fill="#484F58"> / </tspan></text>
+    </g>
+  </g>
+</svg>
