@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="150" viewBox="0 0 1200 150" fill="none" role="img">
-  <title>One deployment, everywhere</title>
+  <title>Vale Atelier, one deployment everywhere</title>
   <defs>
     <style>
       .route { stroke-dasharray: 12 18; animation: route 8s linear infinite; }
@@ -13,5 +13,5 @@
   <path d="M0 66C175 18 278 110 438 66C590 24 718 108 870 66C1002 30 1092 80 1200 54" stroke="#30363D"/>
   <path d="M0 66C175 18 278 110 438 66C590 24 718 108 870 66C1002 30 1092 80 1200 54" class="route" stroke="#39D0C3" stroke-width="2"/>
   <g class="mark"><rect x="591" y="57" width="18" height="18" transform="rotate(45 600 66)" fill="#F2CC60"/></g>
-  <text x="600" y="125" text-anchor="middle" class="copy" fill="#8B949E">ONE DEPLOYMENT / EVERYWHERE</text>
+  <text x="600" y="125" text-anchor="middle" class="copy" fill="#8B949E">VALE ATELIER / ONE DEPLOYMENT / EVERYWHERE</text>
 </svg>

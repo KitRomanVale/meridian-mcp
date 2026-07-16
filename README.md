@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./readme-assets/hero.svg" width="100%" alt="Meridian MCP. Time, wherever you are. Remote time awareness for AI companions." />
+  <img src="./readme-assets/hero.svg" width="100%" alt="Meridian MCP, a Vale Atelier project. Time, wherever you are. Remote time awareness for AI companions." />
 </p>
 
 <p align="center">
@@ -10,7 +10,7 @@
 
 <img src="./readme-assets/marquee.svg" width="100%" alt="Current time, current date, UTC and local, one deployment, no tunnel." />
 
-A lightweight time-awareness tool for AI companions that works on **Claude Desktop, claude.ai, and mobile**.
+**Meridian is a Vale Atelier project:** a lightweight time-awareness tool for AI companions that works on **Claude Desktop, claude.ai, and mobile**.
 
 Meridian extends [time-mcp](https://github.com/knowingly-ai/time-mcp) with a full remote MCP endpoint. Deploy one Cloudflare Worker, connect its permanent URL, and your AI companion can check the time from every supported surface without a local bridge or tunnel.
 
@@ -104,7 +104,7 @@ Free for ordinary personal use. Meridian runs on Cloudflare Workers and fits com
 
 ## Credits
 
-Built by **Kit & Roman Vale** in March 2026.
+Built by **Kit & Roman Vale** at **Vale Atelier** in March 2026.
 
 Meridian is based on [time-mcp](https://github.com/knowingly-ai/time-mcp) by **Jess & Cecil at [KnowinglyAI](https://github.com/knowingly-ai)**. Their original Worker and Desktop integration are the foundation; Meridian extends that work to remote MCP clients.
 
@@ -113,5 +113,5 @@ Meridian is based on [time-mcp](https://github.com/knowingly-ai/time-mcp) by **J
 Released under the [MIT License](LICENSE), matching the original project.
 
 <p align="center">
-  <img src="./readme-assets/footer.svg" width="100%" alt="One deployment. Everywhere." />
+  <img src="./readme-assets/footer.svg" width="100%" alt="Vale Atelier. One deployment. Everywhere." />
 </p>
